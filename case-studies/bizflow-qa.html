@@ -1,0 +1,62 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>BizFlow ERP/POS QA Case Study · Nelvin Mwendwa</title>
+<meta name="description" content="A factual functional QA case study covering test execution, defect reporting and launch-readiness observations for a pre-launch ERP/POS system.">
+<link rel="canonical" href="https://nelvinmwendwa.github.io/case-studies/bizflow-qa.html">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display&family=IBM+Plex+Mono:wght@400;500&family=Manrope:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../styles.css">
+<style>
+.qa-stats{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:12px;margin:28px 0}.qa-stat{border:1px solid var(--line);padding:18px;border-radius:14px}.qa-stat strong{display:block;font:500 clamp(1.8rem,4vw,2.6rem) 'DM Serif Display',serif}.qa-stat span{font:11px 'IBM Plex Mono',monospace;text-transform:uppercase;letter-spacing:.08em;color:var(--muted)}.qa-bar{display:flex;height:12px;overflow:hidden;border-radius:99px;background:var(--line);margin:12px 0 8px}.qa-bar span{display:block}.qa-bar .pass{background:#3c9b79}.qa-bar .fail{background:#c46d61}.qa-bar .blocked{background:#d6a64e}.qa-bar .notrun{background:#9aa0a6}.qa-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:14px}.qa-panel{border:1px solid var(--line);border-radius:14px;padding:20px}.qa-panel h3{margin-top:0}.qa-note{border-left:3px solid var(--line);padding:12px 16px;background:rgba(128,128,128,.07)}@media(max-width:650px){.qa-stats{grid-template-columns:repeat(2,minmax(0,1fr))}.qa-grid{grid-template-columns:1fr}}
+</style>
+</head>
+<body>
+<header class="site-header"><div class="nav"><a class="brand" href="../index.html">Nelvin <span>M.</span></a><nav class="navlinks"><a href="../index.html">Home</a><a class="active" href="../work.html">Work</a><a href="../about.html">About</a><a href="../contact.html">Contact</a></nav></div></header>
+<main class="container">
+<div class="page-hero"><div class="eyebrow">Case study / Software quality assurance</div><h1>Testing the workflows<br>behind an ERP/POS.</h1><p>A structured functional QA engagement on a pre-launch business management and point-of-sale system. The focus was reproducible behaviour, clear defect evidence and practical launch-readiness observations.</p></div>
+<section class="section">
+<div class="section-head"><h2>Execution snapshot</h2><p>Figures are taken from the working QA register. A failed test records an observed mismatch; it does not mean the issue has since been fixed.</p></div>
+<div class="qa-stats">
+<div class="qa-stat"><strong>69</strong><span>Passed</span></div>
+<div class="qa-stat"><strong>38</strong><span>Failed</span></div>
+<div class="qa-stat"><strong>2</strong><span>Not run</span></div>
+<div class="qa-stat"><strong>1</strong><span>Blocked</span></div>
+</div>
+<div class="qa-bar" role="img" aria-label="Test outcomes: 69 passed, 38 failed, 2 not run and 1 blocked"><span class="pass" style="width:62.73%"></span><span class="fail" style="width:34.55%"></span><span class="notrun" style="width:1.82%"></span><span class="blocked" style="width:.9%"></span></div>
+<p class="mono" style="font-size:12px;color:var(--muted)">110 recorded test cases · 45 logged defects</p>
+<div class="qa-grid">
+<div class="qa-panel"><h3>Defect severity</h3><p><strong>7 High</strong> · <strong>28 Medium</strong> · <strong>10 Low</strong></p><p>Severity describes impact, not the order in which fixes should be scheduled. Priority and ownership remain with the product team.</p></div>
+<div class="qa-panel"><h3>Areas exercised</h3><p>Settings, inventory, vendors, purchases, customers, point of sale, sales history, users and branches, accounting, tax management, reports and dashboard.</p></div>
+</div>
+</section>
+<section class="section">
+<div class="section-head"><h2>Representative findings</h2><p>Examples are summarised from the defect register; no tenant URLs, credentials, customer records or screenshots are published here.</p></div>
+<div class="prose">
+<h3>Inventory and stock integrity</h3>
+<ul><li>Inventory valuation appeared to use selling price rather than cost price.</li><li>Stock adjustment and bulk-update workflows accepted quantities that drove stock below zero.</li><li>Adjustment type did not consistently enforce the expected stock direction.</li><li>Some non-main-branch adjustments returned an unexplained 403 response.</li></ul>
+<h3>Sales, customers and accounting</h3>
+<ul><li>Refunds reversed stock and financial totals in some workflows but did not consistently reverse customer points and spend.</li><li>Customer tier discounts appeared in the cart but were not applied to the completed sale.</li><li>Profit figures differed between the dashboard, overview and profit-and-loss views.</li><li>Journal, cash-flow and balance-sheet outputs showed inconsistencies requiring product-owner review.</li></ul>
+<h3>Tax, reports and usability</h3>
+<ul><li>VAT calculations did not consistently equal 16% of the taxable amount in the tested scenario.</li><li>Export behaviour differed by module; some exports failed while report CSV downloads worked.</li><li>Some screens showed incomplete status information or unclear feedback for failed operations.</li></ul>
+</div>
+</section>
+<section class="section">
+<div class="section-head"><h2>Launch-readiness observations</h2><p>These were visible during normal functional use and are not claims that a penetration test was performed.</p></div>
+<div class="prose">
+<ul><li>The login page was served over HTTP rather than HTTPS at the time of testing.</li><li>Test accounts used weak/shared passwords; unique credentials and a stronger policy were recommended.</li><li>Two-factor authentication was shown as disabled in the account summary.</li><li>Email receipt delivery was not configured; SMS, WhatsApp and M-Pesa flows were not verified because a safe test mode had not been confirmed.</li><li>Tax/e-receipt compliance indicators and placeholder-looking identifiers required confirmation by the product owner.</li><li>Card-entry guidance required review in favour of a hosted payment-gateway flow that avoids handling raw card details.</li></ul>
+</div>
+</section>
+<section class="section">
+<div class="section-head"><h2>Method and boundaries</h2></div>
+<div class="prose">
+<p>Testing was performed as functional QA using a tenant-level test account and synthetic records. Test cases captured preconditions, steps, expected outcomes, actual outcomes and status. Reproducible mismatches were linked to defect IDs in the register.</p>
+<p>Security testing, penetration testing, destructive testing against production data, cross-tenant probing and real-payment execution were not part of this work. Payment and messaging integrations were not treated as verified without an approved sandbox or mock mode.</p>
+<div class="qa-note"><strong>Scope note:</strong> This case study describes QA work and observed behaviour. It does not imply that I developed BizFlow, fixed the logged defects, approved its compliance status or certified it for production release.</div>
+</div>
+</section>
+<div class="hero-actions" style="margin:32px 0 60px"><a class="button primary" href="../work.html#bizflow">Back to selected work</a><a class="button" href="../contact.html">Discuss QA work</a></div>
+</main>
+<footer class="container"><div>© 2026 Nelvin Mwendwa</div><div class="mono">Nairobi · Kenya</div><div><a href="https://github.com/nelvinmwendwa" target="_blank" rel="noopener">GitHub</a> · <a href="https://www.linkedin.com/in/nelvin-mwendwa/" target="_blank" rel="noopener">LinkedIn</a></div></footer>
+</body></html>
