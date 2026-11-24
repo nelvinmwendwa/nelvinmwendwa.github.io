@@ -151,3 +151,15 @@ footer{padding:45px 0 60px;display:flex;justify-content:space-between;gap:20px;f
 /* Text-based portrait fallback: keeps the hero complete without a local photo asset. */
 .photo-frame.monogram{display:grid;place-items:center;color:var(--lime);font:clamp(5.5rem,13vw,10.5rem)/1 "DM Serif Display",Georgia,serif;letter-spacing:-.08em}
 .photo-frame.monogram small{position:absolute;bottom:22px;left:0;right:0;text-align:center;color:#f7f2e9;font:10px "IBM Plex Mono",monospace;letter-spacing:.16em}
+
+
+/* Cross-document page transitions (progressive enhancement) */
+@view-transition{navigation:auto}
+::view-transition-old(root){animation:portfolio-exit .18s ease both}
+::view-transition-new(root){animation:portfolio-enter .32s cubic-bezier(.2,.75,.25,1) both}
+@keyframes portfolio-enter{from{opacity:0;transform:translateY(9px);filter:blur(2px)}to{opacity:1;transform:translateY(0);filter:blur(0)}}
+@keyframes portfolio-exit{to{opacity:0;transform:translateY(-4px)}}
+@media(prefers-reduced-motion:reduce){
+  *,*::before,*::after{scroll-behavior:auto!important;animation-duration:.01ms!important;animation-iteration-count:1!important;transition-duration:.01ms!important}
+  ::view-transition-old(root),::view-transition-new(root){animation:none}
+}
