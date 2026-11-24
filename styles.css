@@ -153,13 +153,21 @@ footer{padding:45px 0 60px;display:flex;justify-content:space-between;gap:20px;f
 .photo-frame.monogram small{position:absolute;bottom:22px;left:0;right:0;text-align:center;color:#f7f2e9;font:10px "IBM Plex Mono",monospace;letter-spacing:.16em}
 
 
-/* Cross-document page transitions (progressive enhancement) */
-@view-transition{navigation:auto}
-::view-transition-old(root){animation:portfolio-exit .18s ease both}
-::view-transition-new(root){animation:portfolio-enter .32s cubic-bezier(.2,.75,.25,1) both}
-@keyframes portfolio-enter{from{opacity:0;transform:translateY(9px);filter:blur(2px)}to{opacity:1;transform:translateY(0);filter:blur(0)}}
-@keyframes portfolio-exit{to{opacity:0;transform:translateY(-4px)}}
-@media(prefers-reduced-motion:reduce){
-  *,*::before,*::after{scroll-behavior:auto!important;animation-duration:.01ms!important;animation-iteration-count:1!important;transition-duration:.01ms!important}
-  ::view-transition-old(root),::view-transition-new(root){animation:none}
-}
+
+/* Deliberate, lightweight page transitions with universal-browser fallback */
+body{opacity:1;transform:translateY(0)}
+body.page-enter{animation:page-enter .46s cubic-bezier(.2,.7,.2,1) both}
+body.page-leaving{opacity:0;transform:translateY(-5px);transition:opacity .2s ease,transform .2s ease}
+@keyframes page-enter{from{opacity:0;transform:translateY(9px)}to{opacity:1;transform:translateY(0)}}
+@media(prefers-reduced-motion:reduce){body.page-enter,body.page-leaving{animation:none!important;transition:none!important;opacity:1;transform:none}}
+/* Project identities: restrained accents, shared portfolio design */
+.project[href*="afritick"],.entry#afritick{--project-accent:#71866f;--project-wash:#e7ece3}
+.project[href*="matchmint"],.entry#matchmint{--project-accent:#8d7650;--project-wash:#eee9df}
+.project[href*="bizflow"],.entry#bizflow{--project-accent:#55778a;--project-wash:#e5edf0}
+.project[href*="deriv"],.entry#deriv{--project-accent:#6977a0;--project-wash:#e9ebf3}
+.project[href*="sanctions"],.entry#sanctions{--project-accent:#88708d;--project-wash:#eee8ef}
+.project[href*="afritick"],.project[href*="matchmint"],.project[href*="bizflow"],.project[href*="deriv"],.project[href*="sanctions"]{border-top:3px solid var(--project-accent,var(--line))}
+.project[href*="afritick"]:hover,.project[href*="matchmint"]:hover,.project[href*="bizflow"]:hover,.project[href*="deriv"]:hover,.project[href*="sanctions"]:hover{border-color:var(--project-accent);box-shadow:8px 8px 0 var(--project-wash)}
+.entry#afritick,.entry#matchmint,.entry#bizflow{padding-left:14px;border-left:3px solid var(--project-accent)}
+.entry#afritick .date,.entry#matchmint .date,.entry#bizflow .date{color:var(--project-accent)}
+.photo-frame img{image-rendering:auto;filter:saturate(.98) contrast(1.02)}
